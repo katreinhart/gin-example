@@ -1,6 +1,7 @@
 package main
 
 import "github.com/gin-gonic/gin"
+import "net/http"
 
 func main() {
 	r := gin.Default()
@@ -15,9 +16,8 @@ func main() {
 		})
 	})
 	r.GET("/teapot/:id", func(c *gin.Context) {
-		c.JSON(418, gin.H{
-			"message": "i'm one lil' teapot",
-		})
+		name := c.Param("id")
+		c.String(http.StatusOK, "Hello Teapot # %s", name)
 	})
 	r.Run() // listen and serve on 0.0.0.0:8080
 }
